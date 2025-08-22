@@ -1,0 +1,77 @@
+{
+  "playwright": {
+    "block_resources": ["media", "font"],
+    "screenshot_full_page": true
+  },
+  "artifacts": {"base_dir": "artifacts", "keep_raw_before_after": true, "compress_html": false},
+  "retries": {"max_attempts": 3, "backoff_initial_ms": 300, "backoff_max_ms": 3000},
+  "llm": {
+    "provider": "openrouter",
+    "model_primary": "openrouter/anthropic/claude-3.5-sonnet",
+    "model_fallbacks": ["openrouter/meta/llama-3.1-70b-instruct", "openrouter/openai/gpt-4o-mini"],
+    "temperature": 0.1,
+    "top_p": 0.95,
+    "max_tokens": 1200,
+    "request_timeout_s": 18,
+    "max_retries": 1,
+    "enabled": true,
+    "redact_logs": true
+  },
+  "auth": {
+    "sessions_dir": "sessions",
+    "allow_manual_login": true,
+    "manual_login_timeout_s": 420,
+    "domains": {
+      "www.linkedin.com": {
+        "login_markers": [
+          "input#username",
+          "input#password",
+          "button[type='submit']"
+        ],
+        "logged_in_markers": [
+          "img.global-nav__me-photo",
+          "[data-test-global-nav-link='me']",
+          "a[href*='/mynetwork/']"
+        ]
+      }
+    }
+  }
+  ,
+  "expand": {
+    "max_clicks": 4,
+    "stabilize_ms": 700,
+    "min_delta_chars": 200,
+    "selectors": {
+      "linkedin": [
+        "button.show-more-less-html__button--more",
+        "button.show-more-less-html__button",
+        "button[aria-label*='See more']",
+        "button:has-text('See more')",
+        ".inline-show-more-text__button"
+      ],
+      "lever": [
+        "button:has-text('Show more')",
+        "a.read-more, button.read-more"
+      ],
+      "greenhouse": [
+        "a.read-more, button.read-more, .read-more a"
+      ],
+      "generic": [
+        "button:has-text('See more')",
+        "button:has-text('Show more')",
+        "button:has-text('Read more')"
+      ]
+    }
+  }
+  ,
+  "ats": {
+    "known_hosts": [
+      "lever.co", "greenhouse.io", "boards.greenhouse.io",
+      "myworkdayjobs.com", "ashbyhq.com", "smartrecruiters.com",
+      "bamboohr.com", "personio.de", "jazzhr.com", "teamtailor.com",
+      "jobvite.com", "icims.com", "successfactors.com",
+      "ukg.com", "paylocity.com", "rippling.com", "oraclecloud.com"
+    ],
+    "max_links_to_try": 2
+  }
+}

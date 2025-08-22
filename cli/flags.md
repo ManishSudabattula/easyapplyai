@@ -1,0 +1,1 @@
+--no-llm: Disable LLM assist for a single run. Navigator will skip backfilling missing fields and emit an audit event llm.assist.skipped.
